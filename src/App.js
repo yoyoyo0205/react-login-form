@@ -5,6 +5,7 @@ function App() {
   const initialValues = { username: "", mailAddress: "", password: "" };
   const [formValues, setFormValues] = useState(initialValues);
   const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
 
   const handleChange = (e) => {
     // console.log(e.target.value);
@@ -19,6 +20,7 @@ function App() {
     // ログイン情報を送信する。
     // バリデーションチェックを行う
     setFormErrors(validate(formValues));
+    setIsSubmit(true);
   };
 
   const validate = (values) => {
@@ -80,6 +82,9 @@ function App() {
           </div>
           <p className="erroMsg">{formErrors.password}</p>
           <button className="submitButton">ログイン</button>
+          {Object.keys(formErrors).length === 0 && isSubmit && (
+            <div className="msgOk">ログインに成功しました。</div>
+          )}
         </div>
       </form>
     </div>
